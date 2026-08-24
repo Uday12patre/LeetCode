@@ -1,27 +1,28 @@
 class Solution {
 public:
-    long long ncr(int n, int r)
-    {
-        long long result = 1;
-        for(int i = 0; i < r; i++)
-        {
-            result = result * (n-i);
-            result = result/(i+1);
-        }
-        return result;
-    }
-
     vector<vector<int>> generate(int numRows) {
-
+        
         vector<vector<int>> answer;
+        // creating void 2D vector
+        for(int i = 1; i <= numRows; i++)
+        {
+            vector<int> temp(i);
+            answer.push_back(temp);
+        }
+
+        // filling up pascal's triangle
         for(int i = 0; i < numRows; i++)
         {
-            vector<int> result;
+            int ans;
             for(int j = 0; j <= i; j++)
             {
-                result.push_back(ncr(i,j));
+                if(j == 0 || i == j)
+                    ans = 1;
+                else
+                    ans = answer[i-1][j-1] + answer[i-1][j];
+
+                answer[i][j] = ans; 
             }
-            answer.push_back(result);
         }
 
         return answer;
