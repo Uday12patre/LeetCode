@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        
+        unordered_map<int, int> prefixSumCount;
+        int currCount = 0;
+        int sum = 0;
+
+        prefixSumCount[0] = 1;
+
+        for(int num : nums)
+        {
+            sum += num;
+            
+            if(prefixSumCount.find(sum - k) != prefixSumCount.end())
+            {
+                currCount += prefixSumCount[sum - k];
+            }
+
+            prefixSumCount[sum]++;
+        }
+        return currCount;
+    }
+};
